@@ -22,15 +22,4 @@
     "type": "command",
     "command": "bash $HOME/.claude/statusline-command.sh"
   },
-  "extraKnownMarketplaces": {
-    "obsidian-skills": {
-      "source": {
-        "source": "github",
-        "repo": "kepano/obsidian-skills"
-      }
-    }
-  },
-  "enabledPlugins": {
-    "obsidian@obsidian-skills": true
-  }
 }

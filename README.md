@@ -9,15 +9,28 @@ Opinionated Claude Code configuration: global developer standards, custom agents
 | **CLAUDE.md** | Global developer standards — architecture, code quality, testing, security, git workflow |
 | **agents/** | Custom subagents: `architect`, `code-reviewer`, `hard-critic`, `test-writer` |
 | **commands/** | RFC workflow: `rfc-init`, `rfc-review`, `rfc-propose`, `rfc-implement`, `rfc-learn` |
-| **skills/** | `markitdown` (file-to-markdown converter), `youtube-summarizer` (transcript extraction + summary) |
 | **hooks/** | `hard-critic-check.sh` — auto-triggers hard-critic review on significant changes |
 | **statusline-command.sh** | Custom status bar: user@host, cwd, git branch, diff stats, model, context usage |
-| **settings.template.json** | Env vars, hooks, statusline, and Obsidian skills plugin from [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills) |
+| **settings.template.json** | Env vars, hooks, statusline config |
+
+### Skills
+
+| Skill | Description |
+|-------|-------------|
+| **markitdown** | Convert files (PDF, DOCX, PPTX, XLSX, HTML, etc.) to Markdown via Microsoft's markitdown CLI |
+| **youtube-summarizer** | Extract YouTube transcripts and generate structured summaries |
+| **obsidian-markdown** | Create and edit Obsidian Flavored Markdown (wikilinks, callouts, embeds, properties) |
+| **obsidian-bases** | Create and edit Obsidian Bases (.base files) — database-like views of notes |
+| **json-canvas** | Create and edit JSON Canvas (.canvas) files — visual canvases, mind maps, flowcharts |
+| **obsidian-cli** | Interact with Obsidian vaults via CLI — read, search, manage notes, plugins, themes |
+| **defuddle** | Extract clean markdown from web pages, removing clutter (token-efficient alternative to WebFetch) |
+| **project-manager** | Create and manage projects in Obsidian with structured folders and dashboards |
+| **source-ingest** | Ingest YouTube videos, web articles, or PDFs into the vault as structured notes |
 
 ## Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/claude-dotfiles.git
+git clone https://github.com/Eflarus/claude-dotfiles.git
 cd claude-dotfiles
 ./install.sh
 ```
@@ -25,7 +38,7 @@ cd claude-dotfiles
 The script:
 1. Backs up your existing `~/.claude/settings.json` (if any)
 2. Copies all config files to `~/.claude/`
-3. Sets up the Obsidian skills plugin marketplace reference (auto-installs on first launch)
+3. Installs all skills (including Obsidian skills) directly — no plugins needed
 
 ## Private skills
 
