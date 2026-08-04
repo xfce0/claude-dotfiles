@@ -26,6 +26,7 @@ Opinionated Claude Code configuration: global developer standards, custom agents
 | **defuddle** | Extract clean markdown from web pages, removing clutter (token-efficient alternative to WebFetch) |
 | **project-manager** | Create and manage projects in Obsidian with structured folders and dashboards |
 | **source-ingest** | Ingest YouTube videos, web articles, or PDFs into the vault as structured notes |
+| **vault-organizer** | Sort orphaned Obsidian notes into the appropriate folders and add missing metadata |
 
 ## Install
 
