@@ -183,7 +183,7 @@ If it exists, read it and append the new project row.
 |--------|-----------|--------|
 | Local folder/files | Path to directory or files | Read each file, summarize, route to correct location |
 | URL (article) | `http://` or `https://` (not YouTube) | Use `defuddle parse <url> --md` or WebFetch, summarize |
-| YouTube URL | `youtube.com` or `youtu.be` | Extract transcript via youtube-transcript-api, summarize |
+| YouTube URL | YouTube host with `/watch` or `/watch/` plus `v=`, `/shorts/`, `/embed/`, `/live/`, or `youtu.be/<video-id>` | Delegate to `youtube-summarizer` with the project documents destination, then attach the result to the project |
 | Pasted text | Plain text in the message | Summarize and route |
 | PDF file | `.pdf` path | Read with Read tool, summarize |
 
@@ -195,6 +195,17 @@ If it exists, read it and append the new project row.
 | **Conversation** (email thread, meeting notes, chat log) | `conversation-log.md` | Summarize in chronological order, append to log |
 | **Reference** (article, tutorial, documentation) | `links.md` | Add URL with description |
 | **Key details** (scope, contacts, tech decisions) | `overview.md` | Update relevant section |
+
+For a YouTube URL, delegate extraction and summary to `youtube-summarizer` with the explicit destination `projects/<project-name>/documents/youtube/` inside the vault. Pass the requested output mode through unchanged. The delegated skill must return the exact raw transcript and/or summary paths.
+
+Resolve the absolute vault path before delegation. Resolve the existing project directory beneath that vault, reject `..` and path separators in any user-supplied project name, and pass the absolute destination path to `youtube-summarizer`. Do not update project metadata until every returned output path exists and resolves inside the vault.
+
+After delegation:
+
+- Add the YouTube URL and a short description to `links.md`.
+- Keep the generated transcript and summary under `documents/youtube/`.
+- Add project-relevant decisions, contacts, or action items to `overview.md` when the source contains them.
+- Update `projects.base` and the project's `Last Updated` value.
 
 4. After processing, auto-extract and update:
    - Wikilinks to related vault notes (search for matching topics)

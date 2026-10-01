@@ -18,14 +18,14 @@ Opinionated Claude Code configuration: global developer standards, custom agents
 | Skill | Description |
 |-------|-------------|
 | **markitdown** | Convert files (PDF, DOCX, PPTX, XLSX, HTML, etc.) to Markdown via Microsoft's markitdown CLI |
-| **youtube-summarizer** | Extract YouTube transcripts and generate structured summaries |
+| **youtube-summarizer** | Save timestamped YouTube transcripts or create Obsidian summary notes |
 | **obsidian-markdown** | Create and edit Obsidian Flavored Markdown (wikilinks, callouts, embeds, properties) |
 | **obsidian-bases** | Create and edit Obsidian Bases (.base files) — database-like views of notes |
 | **json-canvas** | Create and edit JSON Canvas (.canvas) files — visual canvases, mind maps, flowcharts |
 | **obsidian-cli** | Interact with Obsidian vaults via CLI — read, search, manage notes, plugins, themes |
 | **defuddle** | Extract clean markdown from web pages, removing clutter (token-efficient alternative to WebFetch) |
 | **project-manager** | Create and manage projects in Obsidian with structured folders and dashboards |
-| **source-ingest** | Ingest YouTube videos, web articles, or PDFs into the vault as structured notes |
+| **source-ingest** | Ingest web articles or PDFs into the vault as structured notes; use `youtube-summarizer` for YouTube |
 | **vault-organizer** | Sort orphaned Obsidian notes into the appropriate folders and add missing metadata |
 
 ## Install

@@ -1,6 +1,6 @@
 ---
 name: source-ingest
-description: Ingest a source (YouTube video, web article, or PDF) into the Obsidian vault as a structured note with frontmatter, summary, key takeaways, and wikilinks to related notes. Use when the user provides a URL or file path and wants it summarized and saved to the vault.
+description: Ingest a non-YouTube web article or PDF into the Obsidian vault as a structured note with frontmatter, summary, key takeaways, and wikilinks to related notes. For YouTube URLs, use youtube-summarizer instead.
 ---
 
 # source-ingest
@@ -11,13 +11,11 @@ Ingest external sources into the Obsidian vault as structured, interlinked notes
 
 | Input | Detection | Extraction method |
 |-------|-----------|-------------------|
-| YouTube URL | Contains `youtube.com/watch` or `youtu.be/` | `youtube-transcript-api` via Python |
 | Web article URL | Any other `http://` or `https://` URL | `defuddle parse <url> --md` |
 | PDF file | Path ends with `.pdf` | Read tool with pages parameter |
 
 ## Prerequisites
 
-- **YouTube**: `pip install youtube-transcript-api` (prompt user to install if missing)
 - **Web articles**: `npm install -g defuddle` (prompt user to install if missing)
 - **PDF**: No extra dependencies
 
@@ -28,26 +26,14 @@ Ingest external sources into the Obsidian vault as structured, interlinked notes
 Determine the source type from the argument:
 
 ```
-youtube.com/watch?v= OR youtu.be/  →  YOUTUBE
+YouTube host (`youtube.com`, `*.youtube.com`, or `youtu.be`) with `/watch` or `/watch/` plus `v=`, `/shorts/`, `/embed/`, `/live/`, or `youtu.be/<video-id>`  →  youtube-summarizer
 *.pdf                               →  PDF
 http:// OR https://                 →  WEB_ARTICLE
 ```
 
 ### Step 2: Extract content
 
-**YouTube:**
-
-```python
-from youtube_transcript_api import YouTubeTranscriptApi
-
-ytt = YouTubeTranscriptApi()
-transcript = ytt.fetch(VIDEO_ID, languages=['ru', 'en'])
-full_text = ' '.join([entry.text for entry in transcript.snippets])
-```
-
-Extract VIDEO_ID from URL:
-- `youtube.com/watch?v=VIDEO_ID` → regex `[?&]v=([^&]+)`
-- `youtu.be/VIDEO_ID` → path segment after `/`
+**YouTube:** Stop this workflow and invoke `youtube-summarizer`. It is the single source of truth for YouTube URL validation, transcript extraction, language selection, raw Markdown output, and Obsidian summaries.
 
 **Web article:**
 
@@ -63,7 +49,7 @@ Use the Read tool with `pages` parameter for large PDFs.
 
 ### Step 3: Determine vault folder
 
-Save to `sources/` by default. This folder is for all ingested external content (YouTube summaries, article summaries, PDF notes).
+Save to `sources/` by default. This folder is for ingested article and PDF notes.
 
 Only save elsewhere if the user explicitly specifies a different folder.
 
@@ -85,8 +71,7 @@ type: source
 title: <TITLE>
 channel: <AUTHOR_OR_CHANNEL>
 published: <DATE or DD/MM/YYYY>
-video: <URL if YouTube, empty otherwise>
-raw: <URL for articles, file path for PDF>
+source: <URL for article, file path for PDF>
 tags:
   - <tag1>
   - <tag2>
